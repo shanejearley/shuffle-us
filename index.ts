@@ -1,3 +1,5 @@
+// Discord Slash Bot for shuffling the peeps in a channel
+
 // Sift is a small routing library that abstracts the details like registering
 // a fetch event listener and provides a simple function (serve) that has an
 // API to invoke a function for a specific path.
