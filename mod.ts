@@ -45,12 +45,12 @@ async function home(request: Request) {
   }
 
   if (type === 2) {
-    const members = cache.channels.get(channelId)?.connectedMembers
+    const memberCount = cache.channels.get(channelId)?.memberCount
 
     return json({
       type: 4,
       data: {
-        content: `Hello, ${members}!`,
+        content: `Hello, ${memberCount}!`,
       },
     });
   }
