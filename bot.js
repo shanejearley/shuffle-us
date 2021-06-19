@@ -3,9 +3,7 @@ const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
 const client = new discord.Client();
-
 const speechClient = new speech.SpeechClient();
-
 
 const config = {
   token: process.env.BOT_TOKEN,
