@@ -55,17 +55,9 @@ async function home(request: Request) {
 
 async function getApiAccess() {
   const BOT_TOKEN = Deno.env.get("BOT_TOKEN") as string
-  await new Promise(resolve => {
-    startBot({
-      token: BOT_TOKEN,
-      intents: ["Guilds", "GuildMembers", "GuildPresences"],
-      eventHandlers: {
-        ready() {
-          console.log('Ready!')
-          resolve
-        }
-      }
-    });
+  await startBot({
+    token: BOT_TOKEN,
+    intents: ["Guilds", "GuildMembers", "GuildPresences"]
   })
 }
 
