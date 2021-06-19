@@ -38,6 +38,7 @@ client.on("message", async message => {
     await connection.play('ding.wav');
 
     connection.on('speaking', (user, speaking) => {
+      console.log(JSON.stringify(user))
       if (!user) return;
       if (user.bot) return;
       if (!speaking) return;
