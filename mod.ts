@@ -1,4 +1,4 @@
-import { startBot, cache, DiscordenoMember } from "https://deno.land/x/discordeno/mod.ts";
+import { startBot, cache } from "https://deno.land/x/discordeno/mod.ts";
 import {
   json,
   serve,
@@ -8,12 +8,6 @@ import nacl from "https://cdn.skypack.dev/tweetnacl@v1.0.3?dts";
 
 serve({
   "/": home,
-});
-
-const BOT_TOKEN = Deno.env.get("BOT_TOKEN") as string
-startBot({
-  token: BOT_TOKEN,
-  intents: ["Guilds", "GuildMembers", "GuildPresences"]
 });
 
 async function home(request: Request) {
@@ -36,7 +30,7 @@ async function home(request: Request) {
     );
   }
 
-  const { type = 0, channel_id: channelId } = JSON.parse(body);
+  const { type = 0 } = JSON.parse(body);
 
   if (type === 1) {
     return json({
@@ -45,7 +39,7 @@ async function home(request: Request) {
   }
 
   if (type === 2) {
-    const { members } = cache
+    const members = await getMembers();
 
     return json({
       type: 4,
@@ -56,6 +50,22 @@ async function home(request: Request) {
   }
 
   return json({ error: "bad request" }, { status: 400 });
+}
+
+async function getMembers() {
+  const BOT_TOKEN = Deno.env.get("BOT_TOKEN") as string
+  await new Promise(resolve => {
+    startBot({
+      token: BOT_TOKEN,
+      intents: ["Guilds", "GuildMembers", "GuildPresences"],
+      eventHandlers: {
+        ready() {
+          resolve
+        }
+      }
+    });
+  })
+  return cache.members
 }
 
 async function verifySignature(
