@@ -41,7 +41,7 @@ client.on("message", async message => {
       if (!user) return;
       if (user.bot) return;
       if (!speaking) return;
-      console.log(`I think ${user.username} is speaking...')
+      console.log(`I think ${user.username} is speaking...`)
 
       const audio = connection.receiver.createStream(user, { mode: 'pcm' });
 
