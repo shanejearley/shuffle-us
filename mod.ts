@@ -1,4 +1,4 @@
-import { startBot, cache } from "https://deno.land/x/discordeno/mod.ts";
+import { startBot, cache, DiscordenoMember } from "https://deno.land/x/discordeno/mod.ts";
 import {
   json,
   serve,
@@ -50,7 +50,7 @@ async function home(request: Request) {
     return json({
       type: 4,
       data: {
-        content: `Hello, ${members}!`,
+        content: `Hello, ${JSON.stringify(members)}!`,
       },
     });
   }
