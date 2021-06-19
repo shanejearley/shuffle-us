@@ -39,7 +39,8 @@ async function home(request: Request) {
   }
 
   if (type === 2) {
-    const members = await getMembers();
+    await getApiAccess()
+    const { members } = cache
 
     return json({
       type: 4,
@@ -52,7 +53,7 @@ async function home(request: Request) {
   return json({ error: "bad request" }, { status: 400 });
 }
 
-async function getMembers() {
+async function getApiAccess() {
   const BOT_TOKEN = Deno.env.get("BOT_TOKEN") as string
   await new Promise(resolve => {
     startBot({
@@ -60,12 +61,12 @@ async function getMembers() {
       intents: ["Guilds", "GuildMembers", "GuildPresences"],
       eventHandlers: {
         ready() {
+          console.log('Ready!')
           resolve
         }
       }
     });
   })
-  return cache.members
 }
 
 async function verifySignature(
