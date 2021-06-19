@@ -13,7 +13,7 @@ serve({
 const BOT_TOKEN = Deno.env.get("BOT_TOKEN") as string
 startBot({
   token: BOT_TOKEN,
-  intents: ["Guilds", "GuildMembers"]
+  intents: ["Guilds", "GuildMembers", "GuildPresences"]
 });
 
 async function home(request: Request) {
