@@ -35,7 +35,7 @@ client.on("message", async message => {
     if (!message.member.voice.channel.speakable) return message.reply(`I don't have permission to speak in that voice channel!`);
 
     const connection = await message.member.voice.channel.join();
-    await connection.play('ding.wav');
+    connection.play('ding.wav');
 
     connection.on('speaking', (user, speaking) => {
 
