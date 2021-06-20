@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
-const client = new discord.Client();
+const client = new discord.Client({ ws: { intents: ['GUILD_VOICE_STATES'] } });
 const speechClient = new speech.SpeechClient();
 
 const config = {
