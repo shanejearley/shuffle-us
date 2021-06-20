@@ -41,14 +41,13 @@ client.on("message", async message => {
       if (!user) return;
       if (user.bot) return;
       if (!speaking) return;
-      console.log(`I think ${user.username} is speaking...`)
-
+      
       const audio = connection.receiver.createStream(user, { mode: 'pcm' });
-
+      
       const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
-
+      
       audio.pipe(fs.createWriteStream(audioFileName));
-    
+      
       audio.on('end', async () => {
         fs.stat(audioFileName, async (err, stat) => {
           if (!err && stat.size) {
@@ -67,10 +66,12 @@ client.on("message", async message => {
               audio: audio,
               config: config,
             };
+            console.log('Transcribing...')
             const [response] = await speechClient.recognize(request);
             const transcription = response.results
-              .map(result => result.alternatives[0].transcript)
-              .join('\n');
+            .map(result => result.alternatives[0].transcript)
+            .join('\n');
+            console.log(`I think ${user.username} said ${transcription}`)
             message.reply(transcription);
           }
         });
