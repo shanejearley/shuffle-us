@@ -42,40 +42,46 @@ client.on("message", async message => {
       if (user.bot) return;
       if (!speaking) return;
       
-      const audio = connection.receiver.createStream(user, { mode: 'pcm' });
+      try {
+        console.log('Streaming...')
+        
+        const audio = connection.receiver.createStream(user, { mode: 'pcm' });
       
-      const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
-      
-      audio.pipe(fs.createWriteStream(audioFileName));
-      
-      audio.on('end', async () => {
-        fs.stat(audioFileName, async (err, stat) => {
-          if (!err && stat.size) {
-            const file = fs.readFileSync(audioFileName);
-            const audioBytes = file.toString('base64');
-            const audio = {
-              content: audioBytes,
-            };
-            const config = {
-              encoding: 'LINEAR16',
-              sampleRateHertz: 48000,
-              languageCode: 'en-US',
-              audioChannelCount: 2,
-            };
-            const request = {
-              audio: audio,
-              config: config,
-            };
-            console.log('Transcribing...')
-            const [response] = await speechClient.recognize(request);
-            const transcription = response.results
-            .map(result => result.alternatives[0].transcript)
-            .join('\n');
-            console.log(`I think ${user.username} said ${transcription}`)
-            message.reply(transcription);
-          }
+        const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
+        
+        audio.pipe(fs.createWriteStream(audioFileName));
+        
+        audio.on('end', async () => {
+          fs.stat(audioFileName, async (err, stat) => {
+            if (!err && stat.size) {
+              const file = fs.readFileSync(audioFileName);
+              const audioBytes = file.toString('base64');
+              const audio = {
+                content: audioBytes,
+              };
+              const config = {
+                encoding: 'LINEAR16',
+                sampleRateHertz: 48000,
+                languageCode: 'en-US',
+                audioChannelCount: 2,
+              };
+              const request = {
+                audio: audio,
+                config: config,
+              };
+              console.log('Transcribing...')
+              const [response] = await speechClient.recognize(request);
+              const transcription = response.results
+              .map(result => result.alternatives[0].transcript)
+              .join('\n');
+              console.log(`I think ${user.username} said ${transcription}`)
+              message.reply(transcription);
+            }
+          });
         });
-      });
+      } catch (err) {
+        console.log(JSON.stringify(err))
+      }
 
     });
   }
