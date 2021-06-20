@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
-const client = new discord.Client({ ws: { intents: ['GUILDS', 'GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_VOICE_STATES'] } });
+const client = new discord.Client();
 const speechClient = new speech.SpeechClient();
 
 const config = {
@@ -82,7 +82,7 @@ client.on("message", async message => {
             .join('\n');
 
             console.log(`I think ${user.username} said ${transcription}`)
-            
+
             message.reply(transcription);
           } else {
             console.log(JSON.stringify(err))
