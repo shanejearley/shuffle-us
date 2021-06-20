@@ -43,10 +43,11 @@ client.on("message", async message => {
       if (!speaking) return;
       
       try {
-        console.log('Streaming...')
         
         const audio = connection.receiver.createStream(user, { mode: 'pcm' });
-      
+
+        console.log('Streaming...')
+        
         const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
         
         audio.pipe(fs.createWriteStream(audioFileName));
