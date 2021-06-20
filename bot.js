@@ -47,12 +47,13 @@ client.on("message", async message => {
         const audio = connection.receiver.createStream(user, { mode: 'pcm' });
 
         
-        const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
+        const audioFileName = '/recordings/' + user.id + '_' + Date.now() + '.pcm';
         
         audio.pipe(fs.createWriteStream(audioFileName));
         console.log('Streaming...')
         
         audio.on('end', async () => {
+          console.log('Processing...')
           fs.stat(audioFileName, async (err, stat) => {
             if (!err && stat.size) {
               const file = fs.readFileSync(audioFileName);
