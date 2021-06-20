@@ -46,11 +46,11 @@ client.on("message", async message => {
         
         const audio = connection.receiver.createStream(user, { mode: 'pcm' });
 
-        console.log('Streaming...')
         
         const audioFileName = './recordings/' + user.id + '_' + Date.now() + '.pcm';
         
         audio.pipe(fs.createWriteStream(audioFileName));
+        console.log('Streaming...')
         
         audio.on('end', async () => {
           fs.stat(audioFileName, async (err, stat) => {
@@ -77,6 +77,8 @@ client.on("message", async message => {
               .join('\n');
               console.log(`I think ${user.username} said ${transcription}`)
               message.reply(transcription);
+            } else {
+              console.log(JSON.stringify(err))
             }
           });
         });
