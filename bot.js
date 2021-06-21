@@ -33,7 +33,7 @@ client.on("message", async message => {
 
       const members = message.member.voice.channel.members.map(member => member.displayName);
 
-      const shuffledMembers = [];
+      let shuffledMembers = members;
       for (let i = members.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
