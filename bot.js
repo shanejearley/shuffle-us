@@ -31,18 +31,19 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const { members } = message.member.voice.channel;
-      const shuffledMembers = await shuffleArray(members).map((member, index) => {
-        console.log(index)
-        return { name: `${index}.`, value: member.displayName }
-      });
+      const members = message.member.voice.channel.members;
+      const shuffledMembers = shuffleArray(members)
 
-      const embed = new discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setDescription('Shuffle Results:')
-        .addFields(...shuffledMembers)
+      const embed = {
+        color: 0x0099ff,
+        fields: []
+      }
 
-      return message.channel.send(embed);
+      for (const [index, member] in shuffledMembers) {
+        embed.fields.push({ name: `${index}.`, value: member })
+      }
+
+      return message.channel.send({ embed });
       
 
     }
@@ -52,7 +53,7 @@ client.on("message", async message => {
   
 });
 
-const shuffleArray = async (array) => {
+const shuffleArray = (array) => {
   const shuffledArray = [];
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
