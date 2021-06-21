@@ -30,8 +30,15 @@ client.on("message", async message => {
     if (command === "shuffle-us") {
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const { members } = message.member.voice.channel;
-      return message.reply(JSON.stringify(members));
+      const members = message.member.voice.channel.members.map((member, index) => {
+        return { name: `1. ${index + 1}`, value: member.username }
+      });
+
+      const embed = new discord.MessageEmbed()
+        .setColor('#0099ff')
+        .addFields(...members)
+
+      return message.channel.send(embed);
       
 
     }
