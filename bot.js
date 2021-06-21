@@ -31,8 +31,8 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = message.member.voice.channel.members;
-      const shuffledMembers = shuffleArray(members).map((member, index) => {
+      const { members } = message.member.voice.channel;
+      const shuffledMembers = await shuffleArray(members).map((member, index) => {
         console.log(index)
         return { name: `${index}.`, value: member.displayName }
       });
@@ -52,7 +52,7 @@ client.on("message", async message => {
   
 });
 
-const shuffleArray = (array) => {
+const shuffleArray = async (array) => {
   const shuffledArray = [];
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
