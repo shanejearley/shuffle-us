@@ -31,7 +31,7 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = message.member.voice.channel.members;
+      const { members } = message.member.voice.channel;
       const shuffledMembers = [];
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -43,7 +43,7 @@ client.on("message", async message => {
         fields: []
       }
 
-      for (const [index, member] of shuffledMembers) {
+      for (const [index, member] of members) {
         embed.fields.push({ name: `${index}.`, value: member.displayName })
       }
 
