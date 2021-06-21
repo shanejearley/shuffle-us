@@ -45,7 +45,12 @@ client.on("message", async message => {
         fields.push(field)
       }
 
-      return message.channel.send({ embed: { fields } });
+      let embed = {
+        color: 0x0099ff,
+        fields
+      }
+
+      return message.channel.send({ embed });
 
     }
   } catch (err) {
