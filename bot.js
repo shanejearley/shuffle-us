@@ -31,7 +31,7 @@ client.on("message", async message => {
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
       const members = message.member.voice.channel.members.map((member, index) => {
-        return { name: `1. ${index + 1}`, value: member.username }
+        return { name: `${index}.`, value: member.displayName }
       });
 
       const embed = new discord.MessageEmbed()
