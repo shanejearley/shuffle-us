@@ -9,19 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shanejearley/shuffle-us.git"
+    "url": "git+https://github.com/shanejearley/shuffle-us-bot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/shanejearley/shuffle-us/issues"
+    "url": "https://github.com/shanejearley/shuffle-us-bot/issues"
   },
-  "homepage": "https://github.com/shanejearley/shuffle-us#readme",
+  "homepage": "https://github.com/shanejearley/shuffle-us-bot#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.5.3",
-    "@google-cloud/speech": "^4.5.2",
     "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0",
-    "ffmpeg-static": "^4.4.0"
+    "dotenv": "^10.0.0"
   }
 }
