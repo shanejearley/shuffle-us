@@ -41,11 +41,11 @@ client.on("message", async message => {
 
       let embedFields = [];
       for (let i = 0; i < shuffledMembers.length; i++) {
-        const field = { name: `${i + 1}.`, value: shuffledMembers[i] }
-        embedFields.push(field)
+        const field = { name: `${i + 1}.`, value: shuffledMembers[i] };
+        embedFields.push(field);
       }
 
-      let embed = {
+      const embed = {
         color: 0x0099ff,
         fields: embedFields
       }
