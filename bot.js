@@ -38,13 +38,13 @@ client.on("message", async message => {
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
       }
 
-      console.log(members, shuffledMembers)
-
       const embed = {
         color: 0x0099ff,
-        fields: members.map((member, index) => {
-          return { name: `${index}.`, value: member.displayName }
-        })
+        fields: []
+      }
+
+      for (let i = 0; i < shuffledMembers.length; i++) {
+        embed.fields.push({ name: `${index}.`, value: member.displayName })
       }
 
       return message.channel.send({ embed });
