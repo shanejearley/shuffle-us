@@ -28,19 +28,19 @@ client.on("message", async message => {
     }
   
     if (command === "shuffle-us") {
-      
+
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = message.member.voice.channel.members.map(member => member.displayName);
-      const shuffledMembers = shuffleArray(members);
+      const members = message.member.voice.channel.members;
+      const shuffledMembers = shuffleArray(members).map((member, index) => {
+        console.log(index)
+        return { name: `${index}.`, value: member.displayName }
+      });
 
       const embed = new discord.MessageEmbed()
         .setColor('#0099ff')
         .setDescription('Shuffle Results:')
-
-      for (const [index, member] in shuffledMembers) {
-        embed.addFields({ name: `${index}.`, value: member })
-      }
+        .addFields(...shuffledMembers)
 
       return message.channel.send(embed);
       
