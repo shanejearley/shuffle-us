@@ -40,11 +40,9 @@ client.on("message", async message => {
 
       const embed = {
         color: 0x0099ff,
-        fields: []
-      }
-
-      for (const [index, member] of members) {
-        embed.fields.push({ name: `${index}.`, value: member.displayName })
+        fields: members.map((member, index) => {
+          return { name: `${index}.`, value: member.displayName }
+        })
       }
 
       return message.channel.send({ embed });
