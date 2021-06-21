@@ -41,7 +41,7 @@ client.on("message", async message => {
 
       const embedFields = [];
       for (let i = 0; i < shuffledMembers.length; i++) {
-        embedFields.push({ name: `${i + 1}.`, value: member.displayName })
+        embedFields.push({ name: `${i + 1}.`, value: shuffledMembers[i].displayName })
       }
 
       const embed = {
