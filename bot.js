@@ -31,7 +31,7 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const { members } = message.member.voice.channel;
+      const members = message.member.voice.channel.members.map(member => member.displayName);
 
       let shuffledMembers = members;
       for (let i = members.length - 1; i > 0; i--) {
@@ -39,18 +39,19 @@ client.on("message", async message => {
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
       }
 
-      let fields = [];
+      let embedFields = [];
       for (let i = 0; i < shuffledMembers.length; i++) {
-        const field = { name: `${i + 1}.`, value: shuffledMembers[i].displayName }
-        fields.push(field)
+        const field = { name: `${i + 1}.`, value: shuffledMembers[i] }
+        embedFields.push(field)
       }
 
       let embed = {
         color: 0x0099ff,
-        fields
+        fields: embedFields
       }
 
       return message.channel.send({ embed });
+      
 
     }
   } catch (err) {
