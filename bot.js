@@ -39,7 +39,7 @@ client.on("message", async message => {
         fields: []
       }
 
-      for (const [index, member] in shuffledMembers) {
+      for (const [index, member] of shuffledMembers) {
         embed.fields.push({ name: `${index}.`, value: member })
       }
 
@@ -54,7 +54,7 @@ client.on("message", async message => {
 });
 
 const shuffleArray = (array) => {
-  const shuffledArray = array;
+  const shuffledArray = [];
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffledArray[i], shuffledArray[j]] = [array[j], array[i]];
