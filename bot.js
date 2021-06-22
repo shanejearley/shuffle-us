@@ -29,13 +29,14 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = Array.from(message.member.voice.channel.members, ([_key, value], index) => ({ name: `#${index}`, value: value.displayName }));
+      const members = Array.from(message.member.voice.channel.members, ([_, guildMember]) => ({ value: guildMember.displayName }))
 
       let shuffledMembers = [];
-
       for (let i = members.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
+        shuffledMembers[i].name = `#${i + 1}`;
+        shuffledMembers[j].name = `#${j + 1}`;
       }
 
       const embed = {
