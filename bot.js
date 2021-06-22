@@ -34,7 +34,7 @@ client.on("message", async message => {
       let shuffledMembers = members;
       for (let i = members.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
+        [shuffledMembers[i], shuffledMembers[j]] = [shuffledMembers[j], shuffledMembers[i]];
         shuffledMembers[i].name = `#${i + 1}`;
         shuffledMembers[j].name = `#${j + 1}`;
       }
