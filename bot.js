@@ -12,8 +12,6 @@ client.on("ready", () => {
   client.user.setActivity(`Serving ${client.guilds.cache.size} servers`);
 });
 
-client.on("debug", console.log)
-
 client.on("message", async message => {
   try {
     if (message.author.bot) return;
@@ -31,13 +29,14 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = message.member.voice.channel.members.map((member, key, collection) => {
-        array = Array.from(collection, ([name, value]) => ({ name, value }));
-        console.log(array)
+      const { members } = message.member.voice.channel
+      array = Array.from(members, ([name, value]) => ({ name, value }));
+      console.log(JSON.stringify(array))
+
+      let shuffledMembers = members.map((member) => {
         return member.displayName
       });
 
-      let shuffledMembers = members;
       for (let i = members.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
