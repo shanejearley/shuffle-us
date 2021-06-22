@@ -31,8 +31,9 @@ client.on("message", async message => {
 
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
-      const members = message.member.voice.channel.members.map((member, index) => {
-        console.log('index: ', index)
+      const members = message.member.voice.channel.members.map((member, key, collection) => {
+        console.log('key: ', key)
+        console.log('collection: ', collection)
         return member.displayName
       });
 
