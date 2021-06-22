@@ -30,7 +30,7 @@ client.on("message", async message => {
       if (!message.member.voice.channel) return message.reply('Please join a voice channel first!');
 
       const { members } = message.member.voice.channel
-      array = Array.from(members, ([name, value]) => ({ name, value }));
+      array = Array.from(members, ([_key, value], index) => ({ name: index, value: value.displayName }));
       console.log(JSON.stringify(array))
 
       let shuffledMembers = members.map((member) => {
