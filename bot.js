@@ -31,7 +31,7 @@ client.on("message", async message => {
 
       const members = Array.from(message.member.voice.channel.members, ([_, guildMember]) => ({ value: guildMember.displayName }))
 
-      let shuffledMembers = [];
+      let shuffledMembers = members;
       for (let i = members.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledMembers[i], shuffledMembers[j]] = [members[j], members[i]];
